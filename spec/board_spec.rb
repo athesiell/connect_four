@@ -32,7 +32,7 @@ describe Board do
   end
   
   describe '#horizontal_win' do
-    context 'checks for horizontal win' do
+    context 'checks for horizontal space' do
       it "returns true if there's horizontal win" do
         some_board = [
           [" ", " ", " ", " ", " ", " ", " "], 
@@ -62,8 +62,8 @@ describe Board do
   end
 
   describe '#vertical_win' do
-    context 'checks for vertical win' do
-      it "returns true of there's vertical win" do
+    context 'checks for vertical space' do
+      it "returns true if there's vertical win" do
         new_board = [
           [" ", " ", " ", " ", " ", " ", " "], 
           [" ", "O", " ", " ", " ", " ", " "], 
@@ -75,6 +75,50 @@ describe Board do
         board.instance_variable_set(:@board, new_board)
         expect(board.vertical_win).to be true
       end
+
+      it "returns false if there's no vertical win" do
+        nowin_board = [
+          [" ", " ", " ", " ", " ", " ", " "], 
+          [" ", "O", " ", " ", " ", " ", " "], 
+          [" ", "X", " ", " ", " ", " ", " "],
+          [" ", "X", " ", " ", " ", " ", " "], 
+          [" ", "O", " ", " ", " ", " ", " "], 
+          [" ", " ", " ", " ", " ", " ", " "]
+        ]
+        board.instance_variable_set(:@board, nowin_board)
+        expect(board.vertical_win).to be false
+      end
     end
   end
+
+  describe '#diagonal_win' do
+    context 'checks for diagonal space' do
+      it 'returns true if there is a diagonal win' do
+        diag_win = [
+          [" ", " ", " ", " ", " ", " ", " "], 
+          [" ", "O", " ", " ", " ", " ", " "], 
+          [" ", " ", "O", " ", " ", " ", " "],
+          [" ", " ", " ", "O", " ", " ", " "], 
+          [" ", " ", " ", " ", "O", " ", " "], 
+          [" ", " ", " ", " ", " ", " ", " "]
+        ]
+        board.instance_variable_set(:@board, diag_win)
+        expect(board.diagonal_win).to be true
+      end
+
+      it 'return false if there is no diagonal win' do
+        diag = [
+          [" ", " ", " ", " ", " ", " ", " "], 
+          [" ", "O", " ", " ", " ", " ", " "], 
+          [" ", " ", "X", " ", " ", " ", " "],
+          [" ", " ", "O", "X", " ", " ", " "], 
+          [" ", " ", "O", "X", "O", " ", " "], 
+          [" ", " ", "X", "O", "X", " ", " "]
+        ]
+        board.instance_variable_set(:@board, diag)
+        expect(board.diagonal_win).to be false
+      end
+    end
+  end
+
 end
