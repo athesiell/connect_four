@@ -24,7 +24,40 @@ class Board
     false
   end
 
-  def vertical_win?
-
+  def vertical_win
+    (0..6).each do |i|
+      (0..2).each do |j|
+        if @board[j][i] == @board[j+1][i] && 
+          @board[j+1][i] == @board[j+2][i] && 
+          @board[j+2][i] == @board[j+3][i] && 
+          @board[j][i] != ' '
+          return true
+        end
+      end
+    end
+    false
   end
+
+  def diagonal_win
+    (0..6).each do |i|
+      (0..5).each do |j|
+        if @board[j][i] == @board[j-1][i-1] &&
+           @board[j-1][i-1] == @board[j-2][i-2] &&
+           @board[j-2][i-2] == @board[j-3][i-3] &&
+           @board[j][i] != ' '
+           return true
+        elsif @board[j][i] == @board[j-1][i+1] &&
+          @board[j-1][i+1] == @board[j-2][i+2] &&
+          @board[j-2][i+2] == @board[j-3][i+3] &&
+          @board[j][i] != ' '
+          return true
+        end
+      end
+    end
+    false
+  end
+
+  def draw_game
+  end
+
 end
