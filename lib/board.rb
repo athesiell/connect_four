@@ -14,6 +14,18 @@ class Board
     @board
   end
 
+  def place_marker(column, marker)
+    row_position = 5
+    while row_position >= 0
+      if @board[row_position][column - 1] == ' '
+        @board[row_position][column - 1] = marker
+        return true
+      end
+      row_position -= 1
+    end
+    'Invalid choice, the column is already full'
+  end
+
   def horizontal_win?
     @board.each do |row|
       return true if row[0..3].all? { |cell| cell == row[0] && cell != ' ' } 
