@@ -57,7 +57,28 @@ class Board
     false
   end
 
-  def draw_game
+  def tie_game
+    @board.each do |row|
+      return false if row.include?(" ")
+    end
+    true
   end
 
+  def game_over?
+    tie_game || horizontal_win? || diagonal_win || vertical_win
+  end
+
+  def end_game_cond
+    if horizontal_win?
+      puts 'it was a horizontal win'
+    elsif diagonal_win
+      puts 'it was a diagonal win'
+    elsif vertical_win
+      puts 'it was a vertical win'
+    elsif tie_game
+      puts 'game ended in a draw'
+    else
+      puts 'keep playing'
+    end
+  end
 end
