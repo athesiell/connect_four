@@ -30,6 +30,36 @@ describe Board do
       end
     end
   end
+
+  describe '#place_marker' do
+    context 'shows the board and marker in it' do
+      before do
+        allow(board).to receive(:draw_board)
+        allow(board).to receive(:game_over?).and_return(false)
+      end
+      it 'returns marker of player in a board' do
+        player_marker = 'O'
+        column = 1
+        board.place_marker(column, player_marker)
+        expect(board.board[5][column - 1]).to eq(player_marker)
+      end
+
+      it 'checks if column is full and returns an error' do
+        new_marker = 'X'
+        old_marker = 'O'
+        column = 3
+        board.place_marker(column, old_marker)
+        board.place_marker(column, new_marker)
+        board.place_marker(column, old_marker)
+        board.place_marker(column, new_marker)
+        board.place_marker(column, old_marker)
+        board.place_marker(column, new_marker)
+        error_message = 'Invalid choice, the column is already full'
+        new_placement = board.place_marker(column, new_marker)
+        expect(new_placement).to eq(error_message)
+      end
+    end
+  end
   
   describe '#horizontal_win' do
     context 'checks for horizontal space' do
