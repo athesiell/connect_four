@@ -121,4 +121,51 @@ describe Board do
     end
   end
 
+  describe '#tie_game' do
+    context 'it checks if the game ended with tie' do
+      before do
+        draw = Array.new(6) { Array.new(7, 'X') }
+        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:diagonal_win).and_return(false)
+        allow(board).to receive(:vertical_win).and_return(false)
+        board.instance_variable_set(:@board, draw)
+      end
+      it 'returns true if the game ended with DRAW' do
+        expect(board.tie_game).to be true
+      end
+    end
+  end
+
+  describe '#game_over' do
+    context 'it checks if the game has ended' do
+      before do
+        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:diagonal_win).and_return(true)
+        allow(board).to receive(:vertical_win).and_return(false)
+        allow(board).to receive(:tie_game).and_return(false)
+      end
+      it 'returns true if the game ended' do
+        expect(board.game_over?).to be true
+      end
+    end
+  end
+  
+  describe '#end_game_cond' do
+    context 'it shows appropriate message of the game' do
+      it 'shows the message of the win' do
+        allow(board).to receive(:horizontal_win?).and_return(true)
+        message = "it was a horizontal win\n"
+        expect { board.end_game_cond }.to output(message).to_stdout
+      end
+
+      it 'shows the message of the tie game' do
+        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:diagonal_win).and_return(false)
+        allow(board).to receive(:vertical_win).and_return(false)
+        allow(board).to receive(:tie_game).and_return(true)
+        tie_message = "game ended in a draw\n"
+        expect { board.end_game_cond }.to output(tie_message).to_stdout
+      end
+    end
+  end
 end
