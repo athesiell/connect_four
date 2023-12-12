@@ -1,5 +1,5 @@
 class Players 
-  attr_reader :player1, :player2, :marker1, :marker2
+  attr_reader :player1, :player2, :marker1, :marker2, :current_player
 
   def initialize(player1 = 'Player 1', player2 = 'Player 2')
     @player1 = player1
@@ -20,12 +20,7 @@ class Players
   end
 
   def update_current_player
-    @current_player =
-      case @current_player
-      when @player1 then @player2
-      when @player2 then @player1
-      else @player1
-      end
+    @current_player = (@current_player == @player1) ? @player2 : @player1
   end
 
   def player_marker
