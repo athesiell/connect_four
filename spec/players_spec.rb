@@ -43,17 +43,17 @@ describe Players do
     end
   end
 
-  describe '#current_player' do
+  describe '#update_current_player' do
     context 'shows the current player' do
       before do
-        plrs.current_player
+        plrs.update_current_player
       end
       it 'shows that it is player 1 turn' do
         expect(plrs.player_marker).to eq('V')
       end
 
       it 'shows that it is player 2 turn' do
-        plrs.current_player
+        plrs.update_current_player
         expect(plrs.player_marker).to eq('O')
       end
     end
