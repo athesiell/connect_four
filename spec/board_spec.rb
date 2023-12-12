@@ -73,7 +73,7 @@ describe Board do
           [" ", " ", " ", " ", " ", " ", " "]
         ]
         board.instance_variable_set(:@board, some_board)
-        expect(board.horizontal_win?).to be true
+        expect(board.horizontal_win).to be true
       end
 
       it 'returns false if there is no win' do
@@ -86,7 +86,7 @@ describe Board do
           [" ", " ", " ", " ", " ", " ", " "]
         ]
         board.instance_variable_set(:@board, false_board)
-        expect(board.horizontal_win?).to be false
+        expect(board.horizontal_win).to be false
       end
     end
   end
@@ -155,7 +155,7 @@ describe Board do
     context 'it checks if the game ended with tie' do
       before do
         draw = Array.new(6) { Array.new(7, 'X') }
-        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:horizontal_win).and_return(false)
         allow(board).to receive(:diagonal_win).and_return(false)
         allow(board).to receive(:vertical_win).and_return(false)
         board.instance_variable_set(:@board, draw)
@@ -169,7 +169,7 @@ describe Board do
   describe '#game_over' do
     context 'it checks if the game has ended' do
       before do
-        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:horizontal_win).and_return(false)
         allow(board).to receive(:diagonal_win).and_return(true)
         allow(board).to receive(:vertical_win).and_return(false)
         allow(board).to receive(:tie_game).and_return(false)
@@ -183,18 +183,20 @@ describe Board do
   describe '#end_game_cond' do
     context 'it shows appropriate message of the game' do
       it 'shows the message of the win' do
-        allow(board).to receive(:horizontal_win?).and_return(true)
-        message = "it was a horizontal win\n"
-        expect { board.end_game_cond }.to output(message).to_stdout
+        allow(board).to receive(:horizontal_win).and_return(true)
+        name = "Joe\n"
+        message = "#{name} you win with 4 horizontal pieces\n"
+        expect { board.end_game_cond(name) }.to output(message).to_stdout
       end
 
       it 'shows the message of the tie game' do
-        allow(board).to receive(:horizontal_win?).and_return(false)
+        allow(board).to receive(:horizontal_win).and_return(false)
         allow(board).to receive(:diagonal_win).and_return(false)
         allow(board).to receive(:vertical_win).and_return(false)
         allow(board).to receive(:tie_game).and_return(true)
-        tie_message = "game ended in a draw\n"
-        expect { board.end_game_cond }.to output(tie_message).to_stdout
+        tie_message = "Nobody won, game ended in a draw\n"
+        current_player = "Mia\n"
+        expect { board.end_game_cond(current_player) }.to output(tie_message).to_stdout
       end
     end
   end
