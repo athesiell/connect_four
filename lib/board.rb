@@ -26,7 +26,7 @@ class Board
     'Invalid choice, the column is already full'
   end
 
-  def horizontal_win?
+  def horizontal_win
     @board.each do |row|
       return true if row[0..3].all? { |cell| cell == row[0] && cell != ' ' } 
       return true if row[1..4].all? { |cell| cell == row[1] && cell != ' ' } 
@@ -77,20 +77,18 @@ class Board
   end
 
   def game_over?
-    tie_game || horizontal_win? || diagonal_win || vertical_win
+    tie_game || horizontal_win || diagonal_win || vertical_win
   end
 
-  def end_game_cond
-    if horizontal_win?
-      puts 'it was a horizontal win'
+  def end_game_cond(player)
+    if horizontal_win
+      puts "#{player} you win with 4 horizontal pieces"
     elsif diagonal_win
-      puts 'it was a diagonal win'
+      puts "#{player} you win with 4 diagonal pieces"
     elsif vertical_win
-      puts 'it was a vertical win'
+      puts "#{player} you win with 4 vertical pieces"
     elsif tie_game
-      puts 'game ended in a draw'
-    else
-      puts 'keep playing'
+      puts 'Nobody won, game ended in a draw'
     end
   end
 end

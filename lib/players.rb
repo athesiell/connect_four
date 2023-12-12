@@ -19,7 +19,7 @@ class Players
     @player2 = name2 unless name2.empty?
   end
 
-  def current_player
+  def update_current_player
     @current_player =
       case @current_player
       when @player1 then @player2
