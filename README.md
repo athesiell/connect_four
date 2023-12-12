@@ -1,6 +1,6 @@
 # Connect Four
 
-From [Wikipedia] (https://en.wikipedia.org/wiki/Connect_Four): 
+From [Wikipedia](https://en.wikipedia.org/wiki/Connect_Four): 
 
 Connect Four (also known as Connect 4, Four Up, Plot Four, Find Four, Captain's Mistress, Four in a Row, Drop Four, and Gravitrips in the Soviet Union) is a game in which the players choose a color and then take turns dropping colored tokens into a six-row, seven-column vertically suspended grid. 
 
@@ -22,4 +22,4 @@ When I was trying to keep it TDD I encountered number of problems:
 
 ### Try it live here 
 
-[Live-version] (https://replit.com/@darkstyle221/connectfour#players.rb)
+[Live-version](https://replit.com/@darkstyle221/connectfour#players.rb)
